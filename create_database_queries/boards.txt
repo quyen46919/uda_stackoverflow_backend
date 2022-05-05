@@ -1,0 +1,7 @@
+
+// CREATE
+
+CREATE TABLE `uda_stackoverflow`.`boards` ( `id` MEDIUMINT NOT NULL AUTO_INCREMENT , `board_name` VARCHAR(100) NOT NULL , `is_destroy` TINYINT(1) NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `team_id` SMALLINT NOT NULL , `created_user_id` MEDIUMINT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+// INSERT 
+INSERT INTO `boards` (`id`, `board_name`, `is_destroy`, `created_at`, `updated_at`, `team_id`, `created_user_id`) VALUES (NULL, 'HỌC NODEJS - SÁNG THỨ 7', '0', current_timestamp(), current_timestamp(), '1', '1'), (NULL, 'HỌC JAVA WEB - SERVLET - SÁNG THỨ 6', '0', current_timestamp(), current_timestamp(), '1', '2')
