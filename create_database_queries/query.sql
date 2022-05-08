@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `uda_stackoverflow`.`uda_users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
+  `avatar` VARCHAR(200) NULL DEFAULT 'no-image.png'
   `hash_password` VARCHAR(45) NOT NULL,  
   `status` TINYINT(1) NULL DEFAULT 1,
   `role` ENUM('admin', 'user') NOT NULL DEFAULT 'user',
