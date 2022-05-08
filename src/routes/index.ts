@@ -1,7 +1,16 @@
 import BoardRoute from './boards.route';
+import express from 'express';
+const router = express.Router();
 
-const routes = [
-    BoardRoute
+const defaultRoutes = [
+    {
+      path: '/boards',
+      route: BoardRoute,
+    }
 ];
 
-export default routes;
+defaultRoutes.forEach((route) => {
+    router.use(route.path, route.route);
+});
+
+export default router;

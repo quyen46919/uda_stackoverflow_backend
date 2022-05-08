@@ -35,7 +35,7 @@ const getConnectionAndQuery = (req: Request, res: Response, query: string) => {
     Connect()
     .then((connection) => {
         Query(connection, query)
-            .then(result => res.status(200).json({ result: result }))
+            .then(result => res.send(result))
             .catch((err) => res.status(500).json({ message: err.message }))
             .finally(() => {
                 connection.end();

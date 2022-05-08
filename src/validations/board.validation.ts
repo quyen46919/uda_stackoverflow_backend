@@ -16,5 +16,5 @@ const createNewBoard = async (req: Request, res: Response, next: NextFunction) =
 }
 
 export default {
-    createNewBoard,
-}
+    createNewBoard
+};
