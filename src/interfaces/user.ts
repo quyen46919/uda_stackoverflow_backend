@@ -3,6 +3,7 @@ export default interface IUser {
     hash_password?: string;
     email: string;
     avatar: string;
+    username: string;
     status: number;
     role: string;
     created_at: string;
@@ -10,7 +11,7 @@ export default interface IUser {
     auth_refresh_token: string;
     is_darkmode: string;
     language: string;
-    disable_notification: string;
+    disable_notification: number;
 }
 
 export function deletePassword(x: IUser) {

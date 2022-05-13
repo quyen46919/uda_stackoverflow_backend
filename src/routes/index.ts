@@ -1,5 +1,6 @@
 import BoardRoute from './boards.route';
 import AuthRoute from './auth.route';
+import UserRoute from './user.route';
 import express from 'express';
 const router = express.Router();
 
@@ -11,6 +12,10 @@ const defaultRoutes = [
     {
       path: '/auth',
       route: AuthRoute,
+    },
+    {
+      path: '/user',
+      route: UserRoute,
     }
 ];
 
