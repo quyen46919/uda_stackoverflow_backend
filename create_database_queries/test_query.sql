@@ -4,6 +4,10 @@
 
 
 USE uda_stackoverflow;
+
+
+UPDATE UDA_USERS SET ROLE = "user" WHERE id = 1 and email = "quyenviettam1@gmail.com";
+
 -- INSERT DATA
 INSERT INTO UDA_USERS(username, email, hash_password, role) VALUES 
 ('Nguyễn Châu Quyền', 'quyen46919@donga.edu.vn', '123123', 'admin'),

@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
-import { Connect, getConnectionAndQuery, Query } from "../config/database.config";
+import { Request, Response } from "express";
+import { getConnectionAndQuery } from "../config/database.config";
 import bcryptjs from 'bcryptjs';
 import IUser from "../interfaces/user";
 import { deletePassword } from "../interfaces/user";
@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken';
 import configs from "../config/config";
 import IJWTVerifyPayload from "../interfaces/jwtVerifyPayload";
 import { buildTokens, verifyRefreshToken } from "../services/signJWT";
-import IAuth from "../interfaces/auth";
 import sendEmailResetPassword from "../services/sendEmailResetPassword";
 import IJWTResetPassword from "../interfaces/jwtResetPassword";
 import { hashPassword } from "../services/hashPassword";

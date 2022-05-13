@@ -1,6 +1,5 @@
 import mysql from 'mysql';
 import configs from './config';
-import { Request, Response } from "express";
 
 const params = {
     user: configs.mySQL.user,
