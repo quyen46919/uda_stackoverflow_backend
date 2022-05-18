@@ -1,6 +1,7 @@
 import BoardRoute from './boards.route';
 import AuthRoute from './auth.route';
 import UserRoute from './user.route';
+import ImageRoute from './image.route';
 import express from 'express';
 const router = express.Router();
 
@@ -16,6 +17,10 @@ const defaultRoutes = [
     {
       path: '/user',
       route: UserRoute,
+    },
+    {
+      path: '/upload-image',
+      route: ImageRoute,
     }
 ];
 
