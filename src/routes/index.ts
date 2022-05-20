@@ -4,6 +4,7 @@ import QuestionRoute from './questions.route';
 import TagInQuestionRoute from './tags_in_question.route';
 import AuthRoute from './auth.route';
 import UserRoute from './user.route';
+import ImageRoute from './image.route';
 import express from 'express';
 const router = express.Router();
 
@@ -31,6 +32,14 @@ const defaultRoutes = [
     {
         path: '/user',
         route: UserRoute,
+    },
+    {
+      path: '/user',
+      route: UserRoute,
+    },
+    {
+      path: '/upload-image',
+      route: ImageRoute,
     }
 ];
 

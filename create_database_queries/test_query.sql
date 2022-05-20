@@ -1,12 +1,20 @@
 -- DROP DATABASE uda_stackoverflow;
 
-
-
-
 USE uda_stackoverflow;
 
 
 UPDATE UDA_USERS SET ROLE = "user" WHERE id = 1 and email = "quyenviettam1@gmail.com";
+
+-- fix phpmyadmin account error
+SELECT * FROM mysql.user WHERE User = 'root';
+DELETE FROM mysql.user WHERE User = 'root';
+
+-- create phpmyadmin user
+create user nodeuser@localhost identified by 'nodeuser@1234';
+grant all privileges on node.* to nodeuser@localhost;
+ALTER USER 'nodeuser'@localhost IDENTIFIED WITH mysql_native_password BY 'nodeuser@1234';
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_password';
 
 -- INSERT DATA
 INSERT INTO UDA_USERS(username, email, hash_password, role) VALUES 
@@ -16,7 +24,7 @@ INSERT INTO UDA_USERS(username, email, hash_password, role) VALUES
 ('Hoàng Hữu Nghĩa', 'nghia45612@donga.edu.vn', '123123', 'user'),
 ('Dương Bình Phương', 'phuong45125@donga.edu.vn', '123123', 'user'),
 ('Nguyễn Hoàng Nguyên', 'nguyen47721@donga.edu.vn', '123123', 'user');
-SELECT * FROM UDA_USERS;
+SELECT * FROM uda_images;
 -- ALTER TABLE UDA_USERS MODIFY status TINYINT(1) DEFAULT 0;
  ALTER TABLE UDA_USERS ADD UNIQUE (email);
 -- UPDATE UDA_USERS SET status = 1 WHERE email = 'masekikurisu@donga.edu.vn';

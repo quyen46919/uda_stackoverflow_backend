@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getConnectionAndQuery } from "../config/database.config";
-import IMySQLUpdateResult from "../interfaces/MySQLUpdateResult";
+import IMySQLResult from "../interfaces/MySQLResult";
 import { convertReqBody } from "../services/convertReqBody";
 import { hashPassword } from "../services/hashPassword";
 
@@ -36,7 +36,7 @@ const updatePassword = async (req: Request, res: Response) => {
         const subQuery = convertReqBody({ 'hash_password': await hashPassword(req.body.password) });
         let query = `UPDATE UDA_USERS SET ${subQuery} WHERE ID = ${userId} AND EMAIL = '${res.locals.jwt.email}'`;
 
-        const result = await getConnectionAndQuery(query) as IMySQLUpdateResult;
+        const result = await getConnectionAndQuery(query) as IMySQLResult;
         if (result.affectedRows !== 0) {
             res.status(200).json({ message: 'Cập nhật thông tin thành công' });
         } else {

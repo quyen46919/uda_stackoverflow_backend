@@ -24,7 +24,7 @@ const GOOGLE_CLOUD_CLIENT_SECRET = process.env.GOOGLE_CLOUD_CLIENT_SECRET || '';
 const GOOGLE_CLOUD_REFRESH_TOKEN = process.env.GOOGLE_CLOUD_REFRESH_TOKEN || '';
 
 const SERVER_ENDPOINT = process.env.SERVER_ENDPOINT || 'localhost:5000';
-const CLIENT_ENDPOINT = process.env.SERVER_ENDPOINT || 'localhost:33000';
+const CLIENT_ENDPOINT = process.env.SERVER_ENDPOINT || 'localhost:3000';
 
 const SERVER_TOKEN = {
     expireTime: SERVER_TOKEN_EXPIRE_TIME,

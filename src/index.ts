@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use('/public/images', express.static('public/images'));
 
 // Routes
 app.use('/api/v1', routes);

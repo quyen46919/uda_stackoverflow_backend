@@ -32,6 +32,20 @@ CREATE TABLE IF NOT EXISTS `uda_stackoverflow`.`uda_users` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+
+CREATE TABLE IF NOT EXISTS `uda_stackoverflow`.`uda_images` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `status` TINYINT(1) NULL DEFAULT 1,
+  `image_url` VARCHAR(1000) NULL DEFAULT NULL,
+  `image_name` VARCHAR(1000) NULL DEFAULT NULL,
+  `description` VARCHAR(1000) NULL DEFAULT NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_uda_card_images_uda_cards1_idx` (`id` ASC))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
 CREATE TABLE IF NOT EXISTS `uda_stackoverflow`.`uda_questions` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(200) NULL DEFAULT NULL,

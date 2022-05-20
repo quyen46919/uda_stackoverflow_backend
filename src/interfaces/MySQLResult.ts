@@ -1,4 +1,4 @@
-export default interface IMySQLUpdateResult {
+export default interface IMySQLResult {
     fieldCount: number,
     affectedRows: number,
     insertId: number,
