@@ -18,26 +18,26 @@ const createNewQuestion = async (req: Request, res: Response) => {
 
 // Read
 const findAllQuestion = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM uda_questions';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
+    // let query = 'SELECT * FROM uda_questions';
+    // const result = getConnectionAndQuery(req, res, query);
+    // return result;
 };
 const findOneQuestion = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM questions';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
+    // let query = 'SELECT * FROM questions';
+    // const result = getConnectionAndQuery(req, res, query);
+    // return result;
 };
 // Update
 const updateQuestion = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM questions';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
+    // let query = 'SELECT * FROM questions';
+    // const result = getConnectionAndQuery(req, res, query);
+    // return result;
 };
 // Delete
 const destroyQuestion = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM questions';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
+    // let query = 'SELECT * FROM questions';
+    // const result = getConnectionAndQuery(req, res, query);
+    // return result;
 };
 export default {
     findAllQuestion,

@@ -4,6 +4,10 @@
 
 
 USE uda_stackoverflow;
+
+
+UPDATE UDA_USERS SET ROLE = "user" WHERE id = 1 and email = "quyenviettam1@gmail.com";
+
 -- INSERT DATA
 INSERT INTO UDA_USERS(username, email, hash_password, role) VALUES 
 ('Nguyễn Châu Quyền', 'quyen46919@donga.edu.vn', '123123', 'admin'),
@@ -13,6 +17,13 @@ INSERT INTO UDA_USERS(username, email, hash_password, role) VALUES
 ('Dương Bình Phương', 'phuong45125@donga.edu.vn', '123123', 'user'),
 ('Nguyễn Hoàng Nguyên', 'nguyen47721@donga.edu.vn', '123123', 'user');
 SELECT * FROM UDA_USERS;
+-- ALTER TABLE UDA_USERS MODIFY status TINYINT(1) DEFAULT 0;
+ ALTER TABLE UDA_USERS ADD UNIQUE (email);
+-- UPDATE UDA_USERS SET status = 1 WHERE email = 'masekikurisu@donga.edu.vn';
+DELETE FROM UDA_USERS WHERE email = 'quyenviettamm1@gmail.com';
+
+ALTER TABLE `uda_stackoverflow`.`uda_users` 
+ADD COLUMN `reset_password_token` VARCHAR(255) NULL DEFAULT NULL AFTER `avatar`;
 
 INSERT INTO UDA_QUESTIONS(title, content, user_id) VALUES 
 ('Tôi không thể sử dụng window.scrollTop(0,0) trong React được', "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", 1),

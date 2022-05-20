@@ -1,14 +1,16 @@
 import BoardRoute from './boards.route';
 import TagRoute from './tags.route';
 import QuestionRoute from './questions.route';
-import TagInQuestionRoute from './tag_in_question.route';
+import TagInQuestionRoute from './tags_in_question.route';
+import AuthRoute from './auth.route';
+import UserRoute from './user.route';
 import express from 'express';
 const router = express.Router();
 
 const defaultRoutes = [
     {
-      path: '/boards',
-      route: BoardRoute,
+        path: '/boards',
+        route: BoardRoute,
     },
     {
         path: '/tags',
@@ -21,6 +23,14 @@ const defaultRoutes = [
     {
         path: '/tag_in_question',
         route: TagInQuestionRoute,
+    },
+    {
+        path: '/auth',
+        route: AuthRoute,
+    },
+    {
+        path: '/user',
+        route: UserRoute,
     }
 ];
 

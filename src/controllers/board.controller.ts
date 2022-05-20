@@ -32,7 +32,7 @@ const getAllBoard = async (req: Request, res: Response) => {
     WHERE q.id = ${questionId || 1}
     GROUP BY q.title, q.content, q.id, tag_list.question_id, q.is_resolved;
     `;
-    let result: any = await getConnectionAndQuery(req, res, query);
+    let result: any = await getConnectionAndQuery(query);
     return result;
 };  
 

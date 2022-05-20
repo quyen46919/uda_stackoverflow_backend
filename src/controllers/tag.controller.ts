@@ -18,26 +18,14 @@ const createNewTag = async (req: Request, res: Response) => {
 
 // Read
 const findAllTag = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM uda_tags';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
 };
 const findOneTag = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM tags';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
 };
 // Update
 const updateTag = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM tags';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
 };
 // Delete
 const destroyTag = (req: Request, res: Response) => {
-    let query = 'SELECT * FROM tags';
-    const result = getConnectionAndQuery(req, res, query);
-    return result;
 };
 export default {
     findAllTag,
