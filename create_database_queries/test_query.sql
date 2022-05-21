@@ -79,6 +79,12 @@ SELECT
     q.id,
     q.title,
     q.content,
+    q.status,
+    q.team_id,
+    q.is_resolved,
+    u.id as user_id,
+    u.username,
+    u.avatar,
     GROUP_CONCAT(DISTINCT tag_list.name) as tags,
     q.is_resolved,
     GROUP_CONCAT(DISTINCT JSON_OBJECT(
@@ -92,6 +98,7 @@ SELECT
 	) separator "///") as answers
 FROM 
     UDA_QUESTIONS AS q
+    INNER JOIN UDA_USERS as u
     INNER JOIN (
 		SELECT a.id, a.content, a.is_corrected, a.created_at, a.question_id, u.username, u.id as post_user_id, u.avatar
 		FROM UDA_ANSWERS a LEFT JOIN UDA_USERS u ON a.user_id = u.id
@@ -100,6 +107,27 @@ FROM
 		SELECT name, question_id FROM UDA_TAGS t 
         LEFT JOIN UDA_TAGS_IN_QUESTION tiq ON t.id = tiq.tag_id
     ) AS tag_list ON q.id = tag_list.question_id
-WHERE q.id = 1
-GROUP BY q.title, q.content, q.id, tag_list.question_id, q.is_resolved;
+WHERE q.id = 1 and q.status = 1;
+
+-- tạo câu hỏi mới
+INSERT INTO UDA_QUESTIONS (title, content, user_id) 
+VALUES ("What is the of use Web3.providers.HttpProvider()", "I don't unde My Guontran itss.HttpProvider('Address')?", 1);
+
+INSERT INTO UDA_QUESTIONS (title, content, team_id, user_id) VALUES ('What is the of use Web3.providers.HttpProvider', 'I dont understand the use of Web3.providers.HttpProvider. My Guess: So when establishing a private network every node should give a different rpcport which identifies it and so it connects to the network. Am I wrong? For example, the above code is used in Frontend for a website in order to connect frontend and deploy a contract in Ethereum Private Network. So the frontend code must be generic which means it should not add specific Ethereum node address in its code. Then what is the use of Web3.providers.HttpProvide?', 2, 3);
+
+-- select tất cả câu hỏi + thông tin người đăng
+SELECT q.id, q.title, q.content, q.is_resolved, q.team_id, q.created_at, q.status, u.id as user_id, u.username, u.email, u.avatar
+FROM UDA_QUESTIONS q JOIN UDA_USERS u ON  q.user_id = u.id
+WHERE q.status = 1;
+
+-- xóa câu hỏi
+UPDATE UDA_QUESTIONS q
+JOIN UDA_USERS u ON q.user_id = u.id
+SET q.status = 2, q.status_message = "Người dùng đã xóa câu hỏi này"
+WHERE q.id = 52 AND u.email = "tai40921@donga.edu.vn";
+
+UPDATE UDA_QUESTIONS q
+JOIN UDA_USERS u ON q.user_id = u.id
+SET q.status = 2, q.status_message = "Người dùng đã xóa câu hỏi này"
+WHERE q.id = 49 AND u.email = "quyenviettam1@gmail.com";
 

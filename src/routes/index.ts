@@ -34,10 +34,6 @@ const defaultRoutes = [
         route: UserRoute,
     },
     {
-      path: '/user',
-      route: UserRoute,
-    },
-    {
       path: '/upload-image',
       route: ImageRoute,
     }

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getConnectionAndQuery } from "../config/database.config";
 import IMySQLResult from "../interfaces/MySQLResult";
-import { convertReqBody } from "../services/convertReqBody";
+import { convertReqBodyForUpdate } from "../services/convertReqBodyForUpdate";
 import { hashPassword } from "../services/hashPassword";
 
 const updateUserInfo = async (req: Request, res: Response) => {
@@ -33,7 +33,7 @@ const updatePassword = async (req: Request, res: Response) => {
         // }
 
         const userId = req.params.userId;
-        const subQuery = convertReqBody({ 'hash_password': await hashPassword(req.body.password) });
+        const subQuery = convertReqBodyForUpdate({ 'hash_password': await hashPassword(req.body.password) });
         let query = `UPDATE UDA_USERS SET ${subQuery} WHERE ID = ${userId} AND EMAIL = '${res.locals.jwt.email}'`;
 
         const result = await getConnectionAndQuery(query) as IMySQLResult;

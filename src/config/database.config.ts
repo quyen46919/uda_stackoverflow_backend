@@ -7,6 +7,7 @@ const params = {
     host: configs.mySQL.host,
     database: configs.mySQL.database,
     port: parseInt(configs.mySQL.port),
+    multipleStatements: true
 };
 
 const Connect = async () => new Promise<mysql.Connection>((resolve, reject) => {
@@ -45,4 +46,8 @@ const getConnectionAndQuery = <T>(query: string) => new Promise<T>((resolve, rej
         .catch((err) => reject(err));
 });
 
-export { Connect, Query, getConnectionAndQuery };
+export { 
+    Connect, 
+    Query, 
+    getConnectionAndQuery 
+};

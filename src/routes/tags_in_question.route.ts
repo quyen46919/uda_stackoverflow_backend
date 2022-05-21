@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import tagInQuestionController from '../controllers/tag_in_question.controller';
+import tagInQuestionController from '../controllers/tags_in_question.controller';
 
 router
     // Create

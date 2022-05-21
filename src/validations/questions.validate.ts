@@ -3,16 +3,11 @@ import Joi from 'joi';
 
 const createNewQuestion = async (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
-        'id': Joi.number().min(1).required(),
-        'question_title': Joi.string().max(200).min(1).required(),
-        'content': Joi.string().max(1000).min(1).required(),
-        'is_resolved': Joi.boolean().required(),
-        'is_destroy': Joi.boolean().required(),
-        'create_at': Joi.string().max(50).required(),
-        'update_at': Joi.string().max(50),
+        'title': Joi.string().max(10000).min(10).required(),
+        'content': Joi.string().min(10).required(),
         'user_id': Joi.number().min(1).required(),
-        'team_id': Joi.number().min(1),
-
+        'team_id': Joi.number().min(1).allow(null, ""),
+        'tag_list': Joi.array().items(Joi.number()).min(1).allow(null, "")
     });
 
     try {

@@ -20,7 +20,6 @@ const sendEmail = async (email: string) => {
             user: configs.emailAccount.username,
             clientId: configs.googleService.clientId,
             clientSecret: configs.googleService.clientSecret,
-            refreshToken: configs.googleService.clientRefreshToken,
             accessToken: String(accessToken)
         },
         pool: true,
