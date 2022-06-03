@@ -1,7 +1,7 @@
 import BoardRoute from './boards.route';
 import TagRoute from './tags.route';
 import QuestionRoute from './questions.route';
-import TagInQuestionRoute from './tags_in_question.route';
+import AnswerRoute from './answers.route';
 import AuthRoute from './auth.route';
 import UserRoute from './user.route';
 import ImageRoute from './image.route';
@@ -22,8 +22,8 @@ const defaultRoutes = [
         route: QuestionRoute,
     },
     {
-        path: '/tag_in_question',
-        route: TagInQuestionRoute,
+        path: '/answers',
+        route: AnswerRoute,
     },
     {
         path: '/auth',

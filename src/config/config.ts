@@ -21,10 +21,11 @@ const EMAIL_RESET_PASSWORD_EXPIRE_TIME = process.env.EMAIL_CONFIRM_ACCOUNT_EXPIR
 
 const GOOGLE_CLOUD_CLIENT_ID = process.env.GOOGLE_CLOUD_CLIENT_ID || '';
 const GOOGLE_CLOUD_CLIENT_SECRET = process.env.GOOGLE_CLOUD_CLIENT_SECRET || '';
+const GOOGLE_CLOUD_REDIRECT_URL = process.env.GOOGLE_CLOUD_REDIRECT_URL || '';
 const GOOGLE_CLOUD_REFRESH_TOKEN = process.env.GOOGLE_CLOUD_REFRESH_TOKEN || '';
 
-const SERVER_ENDPOINT = process.env.SERVER_ENDPOINT || 'localhost:5000';
-const CLIENT_ENDPOINT = process.env.SERVER_ENDPOINT || 'localhost:3000';
+const SERVER_ENDPOINT = process.env.SERVER_ENDPOINT || 'http://localhost:5000';
+const CLIENT_ENDPOINT = process.env.SERVER_ENDPOINT || 'http://localhost:3000';
 
 const SERVER_TOKEN = {
     expireTime: SERVER_TOKEN_EXPIRE_TIME,
@@ -52,6 +53,7 @@ const EMAIL_ACCOUNT = {
 const GOOGLE_CLOUD_SERVICE = {
     clientId: GOOGLE_CLOUD_CLIENT_ID,
     clientSecret: GOOGLE_CLOUD_CLIENT_SECRET,
+    redirectUrl: GOOGLE_CLOUD_REDIRECT_URL,
     clientRefreshToken: GOOGLE_CLOUD_REFRESH_TOKEN,
 }
 

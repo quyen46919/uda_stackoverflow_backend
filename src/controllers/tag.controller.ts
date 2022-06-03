@@ -25,7 +25,7 @@ const createNewTag = async (req: Request, res: Response) => {
 
 const findAllTag = async (req: Request, res: Response) => {
     try {
-        let query = `SELECT * FROM UDA_TAGS WHERE status = 1`;
+        let query = `SELECT id, name, description FROM UDA_TAGS WHERE status = 1`;
         const tags: ITag[] = await getConnectionAndQuery(query);
 
         if (!tags) res.status(401).json({ message: "Không có thẻ nào được tạo" });

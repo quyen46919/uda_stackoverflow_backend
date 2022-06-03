@@ -5,12 +5,12 @@ export const convertReqBodyForInsert = (reqBody: any) => {
     const values = [];
     for (const prop in reqBody) {
         names.push(prop);
-        console.log(reqBody[prop]);
-        console.log(typeof reqBody[prop]);
+        // console.log(reqBody[prop]);
+        // console.log(typeof reqBody[prop]);
         values.push(
             reqBody[prop] !== "" && reqBody[prop] !== null
                 ? mysql.escape(reqBody[prop])
-                : isNaN(reqBody[prop]) ? reqBody[prop] : "NULL"
+                : isNaN(reqBody[prop]) ? mysql.escape(reqBody[prop]) : "NULL"
         );
     }
     const joinedNames = names.join(", ");

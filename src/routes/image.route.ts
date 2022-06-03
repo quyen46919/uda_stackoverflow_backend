@@ -9,6 +9,7 @@ var storage = multer.diskStorage({
         callBack(null, 'public/images');
     },
     filename: (req, file, callBack) => {
+        console.log("file = ", req.file);
         callBack(null, Date.now() + path.extname(file.originalname));
     }
 });

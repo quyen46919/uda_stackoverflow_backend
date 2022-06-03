@@ -4,6 +4,7 @@ import { getConnectionAndQuery } from "../config/database.config";
 import IMySQLResult from "../interfaces/MySQLResult";
 
 const saveImageToDatabase = async (file: Express.Multer.File): Promise<IMySQLResult> => {
+    console.log(file);
     const imageUrl = `${configs.serverVar.serverEndpoint}/public/images/${file?.filename}`;
     let query = `
         INSERT INTO uda_images(image_url, image_name) 

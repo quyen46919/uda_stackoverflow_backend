@@ -21,8 +21,8 @@ const confirmEmailToken = async (req: Request, res: Response) => {
         const updateResult = await getConnectionAndQuery(query);
 
         if (updateResult) {
-            return res.redirect('https://www.facebook.com/');
-            // res.status(200).json({ message: 'Xác thực tài khoản thành công thành công' });
+            // return res.redirect(`${configs.serverVar.clientEndpoint}/login`);
+            res.status(200).json({ message: 'Xác thực tài khoản thành công thành công' });
         }
         console.log('updateResult =', updateResult);
     } catch (err) {
@@ -55,7 +55,7 @@ const logup = async (req: Request, res: Response) => {
 };
 
 const login = async (req: Request, res: Response) => {
-    try {
+    try { 
         let { password, email } = req.body;
         let query = `SELECT * FROM UDA_USERS WHERE email = "${email}" AND status = 1`;
         const userList = await getConnectionAndQuery(query) as IUser[];
@@ -71,10 +71,10 @@ const login = async (req: Request, res: Response) => {
         const isCorrectPassword = await bcryptjs.compare(password, user?.hash_password || '');
         if (!isCorrectPassword) return res.status(400).json({ message: 'Mật khẩu không chính xác!' });
 
-        const token = buildTokens(user);
+        const tokens = buildTokens(user);
         deletePassword(user);
-        if (token) res.status(200).json({
-            token,
+        if (tokens) res.status(200).json({
+            tokens,
             user: user
         });
     } catch (err) {
@@ -104,7 +104,7 @@ const forgotPassword = async (req: Request, res: Response) => {
     try {
         const email = req.body.email as string;
         const { isValidEmail } = await checkValidEmail(email);
-        if (!isValidEmail) res.status(400).json({ message: "Địa chỉ email không tồn tại" });
+        if (!isValidEmail) return res.status(400).json({ message: "Địa chỉ email không tồn tại hoặc chưa được xác thực" });
 
         const emailToken = await sendEmailResetPassword(email);
         if (emailToken) {

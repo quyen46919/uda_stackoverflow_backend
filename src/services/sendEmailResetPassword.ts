@@ -6,14 +6,15 @@ import SMTPPool from 'nodemailer/lib/smtp-pool';
 
 const sendEmailResetPassword = async (email: string) => {
     const OAuth2 = google.auth.OAuth2;
-    const OAuth2Client = new OAuth2(configs.googleService.clientId, configs.googleService.clientSecret);
+    const OAuth2Client = new OAuth2(configs.googleService.clientId, configs.googleService.clientSecret, configs.googleService.redirectUrl);
     OAuth2Client.setCredentials({ refresh_token: configs.googleService.clientRefreshToken });
     const accessToken = OAuth2Client.getAccessToken();
 
     const smtpConfig: SMTPPool.Options = {
-        host: 'smtp.gmail.com',
-        port: Number(465) || 0,
-        secure: true,
+        service: 'gmail',
+        // host: 'smtp.gmail.com',
+        // port: Number(465) || 0,
+        // secure: true,
         auth: {
             type: 'OAuth2',
             user: configs.emailAccount.username,

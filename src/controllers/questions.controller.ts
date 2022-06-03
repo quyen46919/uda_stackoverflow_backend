@@ -40,16 +40,58 @@ const createNewQuestion = async (req: Request, res: Response) => {
 
 const findAllQuestion = async (req: Request, res: Response) => {
     try {
+        // SEARCH
+        const search = req.query.search as string || '';
+        // injection?
+        let searchQuery = search ? `AND (q.title like "%${search}%" or q.content like "%${search}%")` : '';
+
+        // PAGINATE
+        let queryCount = `select count(*) as total_items from UDA_QUESTIONS`;
+        const totalItems: [{ total_items: number }] = await getConnectionAndQuery(queryCount);
+
+        const numPerPage = 10;
+        const limit = Number(req.query.limit) || numPerPage;
+        const totalPage = Math.ceil(totalItems[0].total_items / limit);
+        const page = Number(req.query.page) || 1;
+        const skip = (page - 1) * limit;
+
+        // SORT
+        let orderByQuery = '';
+        const sortBy = req.query.sortBy as string || '';
+        if (sortBy && sortBy.charAt(0) === '-') {
+            let fixString = sortBy.slice(1);
+            orderByQuery = `ORDER BY q.${fixString} DESC`;
+        }
+        if (sortBy && sortBy.charAt(0) !== '-') {
+            orderByQuery = `ORDER BY q.${sortBy} ASC`;
+        };
+
         let query = `
             SELECT q.id, q.title, q.content, q.is_resolved, q.team_id, 
-            q.created_at, q.status, u.id as user_id, u.username, u.avatar
-            FROM UDA_QUESTIONS q JOIN UDA_USERS u ON  q.user_id = u.id
-            WHERE q.status = 1;
+            q.created_at, q.status, u.id as user_id, u.username, u.avatar, group_concat(t.name) as tag_list
+            FROM UDA_QUESTIONS q 
+            JOIN UDA_USERS u ON  q.user_id = u.id
+            LEFT JOIN UDA_TAGS_IN_QUESTION tiq ON  tiq.question_id = q.id
+            LEFT JOIN UDA_TAGS t ON tiq.tag_id = t.id
+            WHERE q.status = 1 ${searchQuery}
+            group by q.id
+            ${orderByQuery}
+            LIMIT ${limit} OFFSET ${skip};
         `;
+        console.log(query);
         const questions: IQuestion[] = await getConnectionAndQuery(query);
+        console.log('totalItems = ', totalItems);
 
         if (!questions) res.status(401).json({ message: "Không có câu hỏi nào được tạo" });
-        res.status(200).json({ message: "Lấy danh sách câu hỏi thành công", questions: questions });
+        res.status(200).json({ 
+            message: "Lấy danh sách câu hỏi thành công", 
+            totalItems: totalItems[0].total_items,
+            page: page,
+            totalPages: totalPage,
+            limit: limit,
+            skip: skip,
+            questions: questions,
+        });
     } catch (err) {
         res.status(401).json({ message: err });
     }
@@ -66,6 +108,7 @@ const findQuestionDetail = async (req: Request, res: Response) => {
             q.status,
             q.team_id,
             q.is_resolved,
+            q.created_at,
             u.id as user_id,
             u.username,
             u.avatar,
@@ -95,7 +138,7 @@ const findQuestionDetail = async (req: Request, res: Response) => {
         `;
         const questionDetail: any = await getConnectionAndQuery(query);
 
-        if (!questionDetail[0].id) res.status(401).json({ message: "Câu hỏi không tồn tại hoặc chưa được duyệt" });
+        if (!questionDetail[0].id) return res.status(400).json({ message: "Câu hỏi không tồn tại hoặc chưa được duyệt" });
         
         if (questionDetail[0].answers) {
             let answerList: any[] = [];
@@ -103,13 +146,17 @@ const findQuestionDetail = async (req: Request, res: Response) => {
             splitedArray.forEach((answer: any) => {
                 answerList.push(JSON.parse(answer));
             });
-            const response = {
-                ...questionDetail[0],
-                answers : answerList
-            }
-            res.status(200).json({ message: "Lấy thông tin câu hỏi thành công", question: response });
+            delete questionDetail[0].answers;
+            
+            return res.status(200).json({ 
+                message: "Lấy thông tin câu hỏi thành công", 
+                question: {
+                    ...questionDetail[0]
+                },
+                answerList: answerList
+            });
         } else {
-            res.status(200).json({ message: "Lấy thông tin câu hỏi thành công", question: questionDetail[0] });
+            return res.status(200).json({ message: "Lấy thông tin câu hỏi thành công", question: questionDetail[0] });
         }
     } catch (err) {
         res.status(401).json({ message: err.message });

@@ -5,21 +5,23 @@ import { google } from 'googleapis';
 import SMTPPool from 'nodemailer/lib/smtp-pool';
 
 const OAuth2 = google.auth.OAuth2;
-const OAuth2Client = new OAuth2(configs.googleService.clientId, configs.googleService.clientSecret);
+const OAuth2Client = new OAuth2(configs.googleService.clientId, configs.googleService.clientSecret, configs.googleService.redirectUrl);
 OAuth2Client.setCredentials({ refresh_token: configs.googleService.clientRefreshToken });
 
 const sendEmail = async (email: string) => {
     const accessToken = OAuth2Client.getAccessToken();
 
     const smtpConfig: SMTPPool.Options = {
-        host: 'smtp.gmail.com',
-        port: Number(465) || 0,
-        secure: true,
+        // host: 'smtp.gmail.com',
+        // port: Number(465) || 0,
+        // secure: true,
+        service: 'gmail',
         auth: {
             type: 'OAuth2',
             user: configs.emailAccount.username,
             clientId: configs.googleService.clientId,
             clientSecret: configs.googleService.clientSecret,
+            refreshToken: configs.googleService.clientRefreshToken,
             accessToken: String(accessToken)
         },
         pool: true,
